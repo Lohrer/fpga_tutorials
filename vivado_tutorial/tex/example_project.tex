@@ -1,2 +1,115 @@
 \section{Creating an Example Project}
 \label{sec:example_project}
+
+This section will take you through how to set up a project, create a simple design, run a
+simulation, create a top-level design, synthesize and implement your design, and finally
+program the FPGA.
+
+Open Vivado, and select File$\rightarrow$New Project or click on Create New Project in the
+quick start screen.
+
+% LOTS OF FIGS
+
+Create two source files, gates2 and gates2\_tb.
+You can skip adding any files during project creation in the future, but for now to show how
+this is done we will do it here.
+After creating gates2\_tb, set it to simulation only.
+After you've created both you should have the following showing:
+
+% FIGS
+
+On the next screen you pick the FPGA that we are targeting, in the case of the Nexys 4 board it is
+an Artix 7 with part number xc7a100tcsg324-1.
+The Basys 3 has an Artix 7 FPGA with part number xc7a35tcpg236-1.
+You can use the filter categories and search box to limit the selection to the desired part number.
+
+% FIGS
+
+Since you listed two files to create, after creating the project a window will pop-up asking to
+define the inputs and outputs of the two files.
+They should be exactly as shown below, gates2\_tb has no inputs or outputs, and gates2 has a and b
+as inputs and a 6-bit bus z[5:0] as an output.
+
+% FIGS
+
+Once you press OK, you should see the following screen, other than some extra sections that are
+removed so that the screenshots fit in this document easier.
+On the left is your sources list, which have all your project files listed.
+If you click on gates2, it will open it in the right section and you will see the auto-generated
+code skeleton.
+You should see your a, b, and z signals you created earlier as inputs and outputs to the module.
+
+% FIGS
+
+Edit the file so that is looks like the following picture.
+For easy copy-and-pasting the code you have to add is given here.
+Note that all the auto-generated comments were removed, feel free to leave or remove them as
+you wish, or even add your own comments! It is a good idea to add your name and date at the top
+of the file in a comment.
+
+% FIGS
+
+Since the testbench file, gates2\_tb was listed as simulation-only, it will show up under the
+simulation sources section.
+Click on it to open it; it will be blank since we didn't add any inputs or outputs!
+
+% FIGS
+
+Add the code required to make a testbench for gates2, shown in the next picture.
+This time you'll have to type it out.
+If you can't read any part of it let us know, but at least on a computer screen it should be
+plenty legible.
+You can copy gates2 as a guide and edit, or start from scratch.
+The latter might be a good idea to get more familiar with the sections of VHDL code.
+Once you are done run a behavioral simulation by clicking on Run Simulation and then Run
+Behavioral simulation in the Flow Navigator to the left.
+
+% FIGS
+
+When the simulation runs, you will want to press zoom-fit so that you can see the entire
+simulation.
+However, by default the simulation runs for 1 μs which happened to be longer than needed in
+this case.
+All the action happened in the first 100 ns!
+Zoom in to the first 100 ns by clicking the zoom in button and dragging the scrollbar.
+Alternatively, you can click and hold the mouse to zoom in, out, fit, or to a range.
+When you zoom in, it zooms at the location of the cursor.
+You can click on the waveform to put the cursor at that location.
+
+% FIGS
+
+You can see from time 0-20 ns that the inputs a and b are both 0, so the output should be 0x15.
+You can check the truth tables of all the gates to see that this is correct.
+Then the rest of the truth table is simulated in the simulation.
+If your simulation doesn't look correct, go back and check your code to make sure it is correct.
+Once the simulation is correct, we can add the top-level file that will connect the inputs and
+outputs to some physical things on the board like switches and LEDs.
+
+% FIGS
+
+Just like in the testbench, in the top-level we are going to port-map in the gates2 component.
+We will simply wire up the I/O of gates2 to the switches and LEDs.
+Type in the following code so that your gates2_top looks like the following picture.
+
+% FIGS
+
+Now we need pin constraints.
+These will map our top-level inputs and outputs, for this example sw[1:0] and ld[5:0] to the
+physical pins on the FPGA so that they are connected to the external switches and LEDs.
+We have preconfigured the constraints file for you, so all you have to do is download it from
+Moodle and add it to your project.
+
+% FIGS
+
+Now that the constraints have been added, we can generate the .bit file that will be
+programmed to the FPGA.
+The steps that are required are to run Synthesis, Implementation, and then Generate Bitstream.
+However, as a shortcut, you can click on Generate Bitstream and it will automatically run the
+other steps if they need to be run.
+
+% FIGS
+Open target$\rightarrow$Auto connect
+Program device$\rightarrow$xc7a100t_0
+% FIGS
+
+
