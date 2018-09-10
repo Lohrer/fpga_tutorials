@@ -8,7 +8,32 @@ program the FPGA.
 Open Vivado, and select File$\rightarrow$New Project or click on Create New Project in the
 quick start screen.
 
-% LOTS OF FIGS
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\textwidth]{new_project_start_page}
+\begin{tikzpicture}[
+    %framed,scale=1, every node/.style={scale=1},
+    box/.style={%
+        rectangle, draw=black, very thick, minimum height=2.25em, minimum width=10.5em,%
+        inner xsep=.25cm, outer sep=.10cm, text centered,
+        draw, align=center
+    },
+    %%% Arrow styles
+    arrow/.style={very thick, ->, >=stealth},
+    dblarrow/.style={very thick, <->, >=stealth},
+    componentnode/.style={shape=rectangle},
+    memorynode/.style={shape=rectangle}
+    ]
+
+    %%% Components
+    \node [box] (sampler) {\small Sample Collector};
+    \node [below of=sampler, yshift=-.5cm, box] (features) {\small Feature Generator};
+
+    %%% Arrows
+    \draw [arrow] (sampler) -- (features);
+\end{tikzpicture}
+\caption{Top-level Diagram}
+\end{figure}
 
 Create two source files, gates2 and gates2\_tb.
 You can skip adding any files during project creation in the future, but for now to show how
