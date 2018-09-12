@@ -8,32 +8,19 @@ program the FPGA.
 Open Vivado, and select File$\rightarrow$New Project or click on Create New Project in the
 quick start screen.
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\textwidth]{new_project_start_page}
-\begin{tikzpicture}[
-    %framed,scale=1, every node/.style={scale=1},
-    box/.style={%
-        rectangle, draw=black, very thick, minimum height=2.25em, minimum width=10.5em,%
-        inner xsep=.25cm, outer sep=.10cm, text centered,
-        draw, align=center
-    },
-    %%% Arrow styles
-    arrow/.style={very thick, ->, >=stealth},
-    dblarrow/.style={very thick, <->, >=stealth},
-    componentnode/.style={shape=rectangle},
-    memorynode/.style={shape=rectangle}
-    ]
-
-    %%% Components
-    \node [box] (sampler) {\small Sample Collector};
-    \node [below of=sampler, yshift=-.5cm, box] (features) {\small Feature Generator};
-
-    %%% Arrows
-    \draw [arrow] (sampler) -- (features);
-\end{tikzpicture}
-\caption{Top-level Diagram}
-\end{figure}
+\begin{center}
+    \centering
+    \begin{tikzpicture}[]
+    \node[anchor=south west,inner sep=0] (image) at (0,0)
+    {
+        \includegraphics[width=\textwidth]{new_project_start_page}
+    };
+    \begin{scope}[x={(image.south east)},y={(image.north west)}]
+        \node (start) at (0.75,0.45) {};
+        \draw [-latex, line width=8pt, red] (start) to[out=-90, in=90] (0.75,0.10);
+    \end{scope}
+    \end{tikzpicture}
+\end{center}
 
 Create two source files, gates2 and gates2\_tb.
 You can skip adding any files during project creation in the future, but for now to show how
@@ -41,14 +28,57 @@ this is done we will do it here.
 After creating gates2\_tb, set it to simulation only.
 After you've created both you should have the following showing:
 
-% FIGS
+\begin{center}
+    \centering
+    \begin{tikzpicture}[arrow/.style={-latex, line width=10pt, darkred!70}]
+    \node[anchor=south west,inner sep=0] (image) at (0,0)
+    {
+        \includegraphics[width=\textwidth]{new_project_name_page}
+    };
+    \begin{scope}[x={(image.south east)},y={(image.north west)}]
+        %\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+        \node (start) at (0.37,0.58) {};
+        \node [left of=start, xshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {1} (end);
+
+        \node (start) at (0.33,0.465) {};
+        \node [left of=start, xshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {2} (end);
+
+        \node (start) at (0.75,0.45) {};
+        \node [below of=start, yshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {3} (end);
+    \end{scope}
+    \end{tikzpicture}
+\end{center}
 
 On the next screen you pick the FPGA that we are targeting, in the case of the Nexys 4 board it is
 an Artix 7 with part number xc7a100tcsg324-1.
 The Basys 3 has an Artix 7 FPGA with part number xc7a35tcpg236-1.
 You can use the filter categories and search box to limit the selection to the desired part number.
 
-% FIGS
+\begin{center}
+    \begin{tikzpicture}[arrow/.style={-latex, line width=10pt, darkred!70}]
+    \node[anchor=south west,inner sep=0] (image) at (0,0)
+    {
+        \includegraphics[width=\textwidth]{new_project_name_page}
+    };
+    \begin{scope}[x={(image.south east)},y={(image.north west)}]
+        %\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+        \node (start) at (0.37,0.58) {};
+        \node [left of=start, xshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {1} (end);
+
+        \node (start) at (0.33,0.465) {};
+        \node [left of=start, xshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {2} (end);
+
+        \node (start) at (0.75,0.45) {};
+        \node [below of=start, yshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {3} (end);
+    \end{scope}
+    \end{tikzpicture}
+\end{center}
 
 Since you listed two files to create, after creating the project a window will pop-up asking to
 define the inputs and outputs of the two files.
