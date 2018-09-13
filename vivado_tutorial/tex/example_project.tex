@@ -9,76 +9,118 @@ Open Vivado, and select File$\rightarrow$New Project or click on Create New Proj
 quick start screen.
 
 \begin{center}
-    \centering
-    \begin{tikzpicture}[]
+    \begin{tikzpicture}[arrow/.style={-latex, line width=10pt, darkred!70}]
     \node[anchor=south west,inner sep=0] (image) at (0,0)
     {
         \includegraphics[width=\textwidth]{new_project_start_page}
     };
     \begin{scope}[x={(image.south east)},y={(image.north west)}]
-        \node (start) at (0.75,0.45) {};
-        \draw [-latex, line width=8pt, red] (start) to[out=-90, in=90] (0.75,0.10);
+        \node (start) at (0.68,0.64) {};
+        \node [below of=start, yshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {1} (end);
     \end{scope}
     \end{tikzpicture}
-\end{center}
 
-Create two source files, gates2 and gates2\_tb.
-You can skip adding any files during project creation in the future, but for now to show how
-this is done we will do it here.
-After creating gates2\_tb, set it to simulation only.
-After you've created both you should have the following showing:
-
-\begin{center}
-    \centering
     \begin{tikzpicture}[arrow/.style={-latex, line width=10pt, darkred!70}]
     \node[anchor=south west,inner sep=0] (image) at (0,0)
     {
         \includegraphics[width=\textwidth]{new_project_name_page}
     };
     \begin{scope}[x={(image.south east)},y={(image.north west)}]
-        %\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
-        \node (start) at (0.37,0.58) {};
+        \node (start) at (0.42,0.58) {};
         \node [left of=start, xshift=-1.2cm] (end) {};
         \draw [arrow] (start) -- node [midway, black] {1} (end);
 
-        \node (start) at (0.33,0.465) {};
+        \node (start) at (0.38,0.459) {};
         \node [left of=start, xshift=-1.2cm] (end) {};
         \draw [arrow] (start) -- node [midway, black] {2} (end);
 
-        \node (start) at (0.75,0.45) {};
+        \node (start) at (0.675,0.5) {};
         \node [below of=start, yshift=-1.2cm] (end) {};
         \draw [arrow] (start) -- node [midway, black] {3} (end);
     \end{scope}
     \end{tikzpicture}
+
+    \begin{tikzpicture}[arrow/.style={-latex, line width=10pt, darkred!70}]
+    \node[anchor=south west,inner sep=0] (image) at (0,0)
+    {
+        \includegraphics[width=\textwidth]{new_project_type}
+    };
+    \begin{scope}[x={(image.south east)},y={(image.north west)}]
+        %\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+        \node (start) at (0.672,0.3) {};
+        \node [below of=start, yshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {} (end);
+    \end{scope}
+    \end{tikzpicture}
 \end{center}
+
+Make sure the "Target language" is set to VHDL.
+Then create two source files, gates2 and gates2\_tb.
+You can skip adding any files during project creation in the future, but for now to show how
+this is done we will do it here.
+
+\begin{center}
+    \begin{tikzpicture}[arrow/.style={-latex, line width=10pt, darkred!70}]
+    \node[anchor=south west,inner sep=0] (image) at (0,0)
+    {
+        \includegraphics[width=\textwidth]{new_project_add_sources}
+    };
+    \begin{scope}[x={(image.south east)},y={(image.north west)}]
+        \node (start) at (0.42,0.23) {};
+        \node [left of=start, xshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {1} (end);
+
+        \node (start) at (0.85,0.495) {};
+        \node [left of=start, xshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {2} (end);
+    \end{scope}
+    \end{tikzpicture}
+
+    \begin{minipage}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{create_gates2}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{create_gates2_tb}
+    \end{minipage}
+\end{center}
+
+After creating gates2\_tb, set it to simulation only.
+We will create a testbench with this file which only gets used in simulation.
+Now you should have the following showing:
+
+\begin{center}
+    \begin{tikzpicture}[arrow/.style={-latex, line width=10pt, darkred!70}]
+    \node[anchor=south west,inner sep=0] (image) at (0,0)
+    {
+        \includegraphics[width=\textwidth]{new_project_sources_added}
+    };
+    \begin{scope}[x={(image.south east)},y={(image.north west)}]
+        \node (start) at (0.8,0.555) {};
+        \node [left of=start, xshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {1} (end);
+
+        \node (start) at (0.675,0.32) {};
+        \node [below of=start, yshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {2} (end);
+    \end{scope}
+    \end{tikzpicture}
+\end{center}
+
+Now find the proper Xilinx Design Constraints (XDC) file for your board.
+For Dr. Hanna or Dr. Gorski's class you should use one provided on Moodle which offer
+preconfigured names for outputs matching the book's examples.
+For Dr. LLamocca's class you should use the master XDC file provided by Digilent Inc.
+He has made it available on Moodle as well.
+Make sure you use the correct XDC file for your board, and note that the Nexys 4 and Nexys 4 DDR
+are two different boards.
 
 On the next screen you pick the FPGA that we are targeting, in the case of the Nexys 4 board it is
 an Artix 7 with part number xc7a100tcsg324-1.
 The Basys 3 has an Artix 7 FPGA with part number xc7a35tcpg236-1.
 You can use the filter categories and search box to limit the selection to the desired part number.
 
-\begin{center}
-    \begin{tikzpicture}[arrow/.style={-latex, line width=10pt, darkred!70}]
-    \node[anchor=south west,inner sep=0] (image) at (0,0)
-    {
-        \includegraphics[width=\textwidth]{new_project_name_page}
-    };
-    \begin{scope}[x={(image.south east)},y={(image.north west)}]
-        %\draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
-        \node (start) at (0.37,0.58) {};
-        \node [left of=start, xshift=-1.2cm] (end) {};
-        \draw [arrow] (start) -- node [midway, black] {1} (end);
-
-        \node (start) at (0.33,0.465) {};
-        \node [left of=start, xshift=-1.2cm] (end) {};
-        \draw [arrow] (start) -- node [midway, black] {2} (end);
-
-        \node (start) at (0.75,0.45) {};
-        \node [below of=start, yshift=-1.2cm] (end) {};
-        \draw [arrow] (start) -- node [midway, black] {3} (end);
-    \end{scope}
-    \end{tikzpicture}
-\end{center}
 
 Since you listed two files to create, after creating the project a window will pop-up asking to
 define the inputs and outputs of the two files.
