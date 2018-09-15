@@ -191,8 +191,11 @@ as inputs and a 6-bit bus z[5:0] as an output.
     \includegraphics[width=\textwidth]{define_modules_gates2_tb}
 \end{center}
 
-Once you press OK, you should see the following screen, other than some extra sections that are
-minimized so that the screenshots fit in this document easier.
+\subsection{First Component}
+
+Once you are done creating the project and module definitions, you should see the following
+screen, other than some extra sections that are minimized so that the screenshots fit in this
+document easier.
 On the left is your sources list, which have all your project files listed.
 If you click on gates2, it will open it in the right section and you will see the auto-generated
 code skeleton.
@@ -225,13 +228,18 @@ z(0) <= a xnor b;
     \includegraphics[width=\textwidth]{project_gates2_modified}
 \end{center}
 
+\subsection{Simulation}
+
 Vivado seems to sometimes have a bug when creating simulation-only sources like our gates2\_tb.
 It sometimes creates a blank file under the simulation directory and also a skeleton VHDL file
 under the source directory.
 The picture below on the left shows the project directory structure and the two gates2\_tb.vhd
 files that were created.
-To fix this bug after creating a simulation-only source, move the file under the source directory
-to replace the one in the simulation directory.
+To fix this bug after creating a simulation-only source, either move the file under the
+source directory (which has the skeleton code) to replace the one in the simulation directory
+(which is blank).
+Alternatively simply delete the one in the source directory, but then you will be starting out
+with a completely blank testbench file.
 When done the project directory should look like the picture below on the right.
 
 \vspace{3mm}
@@ -367,24 +375,129 @@ You can see from time 0-20 ns that the inputs a and b are both 0, so the output 
 You can check the truth tables of all the gates to see that this is correct.
 Then the rest of the truth table is simulated in the simulation.
 If your simulation doesn't look correct, go back and check your code to make sure it is correct.
-Once the simulation is correct, we can add the top-level file that will connect the inputs and
-outputs to some physical things on the board like switches and LEDs.
 
-% FIGS
+Next is programming our board but first we have to make sure the inputs and outputs are properly
+connected to the pins on our FPGA.
+We do this by mapping our top-level signal names to pins in a constraints file.
+If you are in Dr. Hanna or Dr. Gorski's class you should continue with the
+\nameref{sec:toplevel} section.
+If you are in Dr. Llamocca's class you should skip to the \nameref{sec:constraints} section.
+
+\subsection{Top-Level Wrapper}
+\label{sec:toplevel}
+This section is aimed towards the style of Dr. Hanna or Dr. Gorski.
+You can choose to use this method or skip to \nameref{sec:constraints}.
+One option is to always use the same constraints file, and make sure that our top-level uses
+the correct signal names.
+Since we used a, b, and z for signal names in gates2, we will create a wrapper file called
+gates2\_top that maps a to sw(1), b to sw(0), and z to ld.
+
+First click on PROJECT MANAGER to get back to the project manager view of Vivado.
+Either select File$\rightarrow$Add Sources... or click Add Sources under PROJECT MANAGER to
+open up the Add Sources wizard. Make sure to select design sources.
+
+\begin{center}
+    \includegraphics[width=\textwidth]{add_sources_type}
+\end{center}
+
+Just like creating gates2 and gates2\_tb click Create File and then type gates2\_top.
+
+\begin{center}
+    \begin{tikzpicture}[arrow/.style={-latex, line width=10pt, darkred!70}]
+    \node[anchor=south west,inner sep=0] (image) at (0,0)
+    {
+        \includegraphics[width=\textwidth]{add_sources_gates2_top}
+    };
+    \begin{scope}[x={(image.south east)},y={(image.north west)}]
+        \node (start) at (0.89,0.46) {};
+        \node [left of=start, xshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {1} (end);
+
+        \node (start) at (0.786,0.35) {};
+        \node [below of=start, yshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {2} (end);
+    \end{scope}
+    \end{tikzpicture}
+\end{center}
+
+\begin{center}
+    \begin{tikzpicture}[arrow/.style={-latex, line width=10pt, darkred!70}]
+    \node[anchor=south west,inner sep=0] (image) at (0,0)
+    {
+        \includegraphics[width=\textwidth]{define_modules_gates2_top}
+    };
+    \begin{scope}[x={(image.south east)},y={(image.north west)}]
+        \node (start) at (0.65,0.202) {};
+        \node [left of=start, xshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {1} (end);
+
+        \node (start) at (0.736,0.3) {};
+        \node [below of=start, yshift=-1.2cm] (end) {};
+        \draw [arrow] (start) -- node [midway, black] {2} (end);
+    \end{scope}
+    \end{tikzpicture}
+\end{center}
 
 Just like in the testbench, in the top-level we are going to port-map in the gates2 component.
 We will simply wire up the I/O of gates2 to the switches and LEDs.
 Type in the following code so that your gates2\_top looks like the following picture.
 
-% FIGS
+\begin{center}
+\begin{minipage}{\textwidth}
+\begin{verbatim}
+library ieee;
+use ieee.std_logic_1164.all;
 
-Now we need pin constraints.
-These will map our top-level inputs and outputs, for this example sw[1:0] and ld[5:0] to the
-physical pins on the FPGA so that they are connected to the external switches and LEDs.
-We have preconfigured the constraints file for you, so all you have to do is download it from
-Moodle and add it to your project.
+entity gates2_top is
+    port ( sw : in  std_logic_vector(1 downto 0);
+           ld : out std_logic_vector(5 downto 0));
+end gates2_top;
 
-% FIGS
+architecture behavioral of gates2_top is
+    component gates2
+    port( a : in  std_logic;
+          b : in  std_logic;
+          z : out std_logic_vector(5 downto 0)
+        );
+    end component;
+begin
+    G2: gates2 port map (
+            a => sw(1),
+            b => sw(0),
+            z => ld
+        );
+end behavioral;
+\end{verbatim}
+\end{minipage}
+\end{center}
+
+\subsection{Editing Constraints}
+\label{sec:constraints}
+This section is aimed towards the style of Dr. Llamocca, if you created a top-level in the
+previous section then skip to \nameref{sec:programming}.
+You can choose to use this method or the previous \nameref{sec:toplevel} method.
+Here instead of creating a wrapper file the constraints file is edited directly.
+Since we used a, b, and z for signal names in gates2, we will modify the constraints file to
+map a to SW1, b to SW0 and z to LED[5:0].
+
+Open the constraints file we added when creating the project.
+A \verb|#| is the comment symbol in .xdc files, so first uncomment the set\_property lines
+for SW[0], SW[1], and LED[0]-LED[5].
+Breaking down the first set\_property command below, "PACKAGE\_PIN J15" means connect to pin
+J15, "IOSTANDARD LVCMOS33" means set the voltage level to 3.3V, and "get\_ports { a }" means
+this property applies to the a signal of the top-level.
+The second line shows z[0] which means it applies to the least-significant bit of the z signal of
+the top-level.
+
+\begin{verbatim}
+set_property -dict { PACKAGE_PIN J15   IOSTANDARD LVCMOS33 } [get_ports { a }];
+set_property -dict { PACKAGE_PIN H17   IOSTANDARD LVCMOS33 } [get_ports { z[0] }];
+\end{verbatim}
+
+\begin{mdframed}[style=note]
+    While VHDL is case-insensitive, XDC files are not.
+    Be careful that the case of the signal name in the top-level matches the case in the XDC file.
+\end{mdframed}
 
 Now that the constraints have been added, we can generate the .bit file that will be
 programmed to the FPGA.
