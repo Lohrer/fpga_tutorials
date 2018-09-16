@@ -154,11 +154,11 @@ You can use the filter categories and search box to limit the selection to the d
         \includegraphics[width=\textwidth]{new_project_part}
     };
     \begin{scope}[x={(image.south east)},y={(image.north west)}]
-        \node (start) at (0.61,0.393) {};
-        \node [left of=start, xshift=-1.2cm] (end) {};
+        \node (start) at (0.08,0.54) {};
+        \node [below of=start, yshift=-1.2cm] (end) {};
         \draw [arrow] (start) -- node [midway, black] {1} (end);
 
-        \node (start) at (0.676,0.3) {};
+        \node (start) at (0.676,0.32) {};
         \node [below of=start, yshift=-1.2cm] (end) {};
         \draw [arrow] (start) -- node [midway, black] {2} (end);
     \end{scope}
