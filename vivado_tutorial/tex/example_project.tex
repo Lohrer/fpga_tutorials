@@ -498,16 +498,3 @@ set_property -dict { PACKAGE_PIN H17   IOSTANDARD LVCMOS33 } [get_ports { z[0] }
     While VHDL is case-insensitive, XDC files are not.
     Be careful that the case of the signal name in the top-level matches the case in the XDC file.
 \end{mdframed}
-
-Now that the constraints have been added, we can generate the .bit file that will be
-programmed to the FPGA.
-The steps that are required are to run Synthesis, Implementation, and then Generate Bitstream.
-However, as a shortcut, you can click on Generate Bitstream and it will automatically run the
-other steps if they need to be run.
-
-% FIGS
-Open target$\rightarrow$Auto connect
-Program device$\rightarrow$xc7a100t\_0
-% FIGS
-
-
