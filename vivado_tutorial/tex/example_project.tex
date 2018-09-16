@@ -478,7 +478,7 @@ previous section then skip to \nameref{sec:programming}.
 You can choose to use this method or the previous \nameref{sec:toplevel} method.
 Here instead of creating a wrapper file the constraints file is edited directly.
 Since we used a, b, and z for signal names in gates2, we will modify the constraints file to
-map a to SW1, b to SW0 and z to LED[5:0].
+map a to SW[1], b to SW[0] and z to LED[5:0].
 
 Open the constraints file we added when creating the project.
 A \verb|#| is the comment symbol in .xdc files, so first uncomment the set\_property lines
@@ -488,6 +488,7 @@ J15, "IOSTANDARD LVCMOS33" means set the voltage level to 3.3V, and "get\_ports 
 this property applies to the a signal of the top-level.
 The second line shows z[0] which means it applies to the least-significant bit of the z signal of
 the top-level.
+Use these examples to modify the XDC file to map all of your top-level signals to FPGA pins.
 
 \begin{verbatim}
 set_property -dict { PACKAGE_PIN J15   IOSTANDARD LVCMOS33 } [get_ports { a }];
