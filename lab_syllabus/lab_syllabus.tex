@@ -1,0 +1,80 @@
+\documentclass[letterpaper]{article}
+
+% Margins
+\RequirePackage[left=1in,right=1in,top=0.5in,bottom=0.5in, includefoot, includehead,%
+                head=14pt]{geometry}
+
+% Footer
+\RequirePackage{fancyhdr}
+% Turn on the style
+\pagestyle{fancy}
+% Clear the header and footer
+\fancyhf{}
+% Set title in header
+\fancyhead[C]{\large ECE/CSI 3710 and ECE/CSI 5008 Lab Syllabus}
+% Set last update date on the left, page number on the right
+\fancyfoot[R]{\small\thepage}
+\fancyfoot[L]{\small Updated \today}
+
+% Reduce spacing between items
+\usepackage{enumitem}
+%\setlist{noitemsep}
+\setlist{itemsep=0em}
+
+\begin{document}
+
+\subsection*{How to submit a lab}
+\begin{itemize}
+    \item Demonstrate your working lab to a TA in your lab period
+    \item Upload files to Moodle
+    \begin{enumerate}[topsep=0em]
+        \item All VHDL files including testbench
+        \item Constraints file (XDC)
+    \end{enumerate}
+\end{itemize}
+
+\subsection*{How to demonstrate a lab}
+\begin{itemize}
+    \item Complete the lab as specified in the lab handout
+    \item Lab work is individual, you can get help from others but copying code is not allowed
+    \item Ask a TA to demonstrate the lab
+    \item Show that your solution works both in simulation and on the board
+    \item The TA will ask a question to check your understanding of the lab
+\end{itemize}
+
+\subsection*{Lab grading}
+\begin{itemize}
+    \item Labs are due in your lab session, whichever you are assigned to
+    \item If time allows labs will be graded when you demonstrate, otherwise they will be
+          graded later from the code submitted to Moodle
+    \item You must demonstrate your lab to a TA to get a grade
+    \item Each lab is worth 20 points: 10 points for demonstration, 10 points for correct code
+    \item Late submissions have a 25\% per week penalty. Anytime after your lab sessions ends
+          counts as the next week.
+\end{itemize}
+
+\subsection*{Lab space guidelines}
+\begin{itemize}
+    \item You don't have to shut down the lab computers, just log out
+    \item USB cables can be borrowed but are not left at the stations due to them going missing
+\end{itemize}
+
+\subsection*{Vivado tips}
+\begin{itemize}
+    \item Vivado can take some time to open, be patient
+    \item Pay attention to critical warnings and errors
+    \item Click on the blue links to take you you directly to the error
+    \item Errors may not be caused exactly where they are reported, for example check the line
+          above for things like a missing semicolon
+\end{itemize}
+
+\subsection*{General tips}
+\begin{itemize}
+    \item Save files on the H: drive or a flash drive so you have a copy when you leave lab
+    \item Double-check your uploaded files match the lab's deliverables
+    \item Don't get behind on labs,­ most of them build on each other
+    \item If you have a question outside of lab, feel free to email the TAs.
+          It is suggested to put all of them on the email to get a quicker response.
+\end{itemize}
+
+\end{document}
