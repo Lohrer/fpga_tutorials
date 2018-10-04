@@ -3,3 +3,6 @@
 *.log
 *.out
 *.synctex.gz
+
+# Dolphin files:
+.directory
