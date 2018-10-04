@@ -1,0 +1,78 @@
+\ProvidesPackage{config_flash}
+
+% Margins
+\RequirePackage[left=1in,right=1in,top=0.5in,bottom=0.5in, includefoot, includehead]{geometry}
+
+% Footer
+\RequirePackage{fancyhdr}
+% Turn on the style
+\pagestyle{fancy}
+% Clear the header and footer
+\fancyhead{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+% Set last update date on the left, page number on the right
+\fancyfoot[R]{\small\thepage}
+\fancyfoot[L]{\small Updated \today}
+
+% Default image path
+\RequirePackage{tikz}
+\graphicspath{{img/}}
+
+% Add a new color
+\definecolor{darkred}{rgb}{0.9, 0.2, 0.2}
+
+% Place an image inline and optionally add arrows
+% \arrowimage[arrows]{image_file}{width}
+\RequirePackage{ifthen}
+\newcommand*{\arrowpos}{}
+\newcommand*{\arrowx}{}
+\newcommand*{\arrowy}{}
+\tikzset{
+    apply style/.code={
+        \ifthenelse{\equal{#1}{left}}{%
+            \tikzset{right of = end, xshift=1.2cm}%
+        }{%
+        \ifthenelse{\equal{#1}{right}}{%
+            \tikzset{left of = end, xshift=-1.2cm}%
+        }{%
+        \ifthenelse{\equal{#1}{up}}{%
+            \tikzset{below of = end, yshift=-1.2cm}%
+        }{% down
+            \tikzset{above of = end, yshift=1.2cm}%
+        }}}%
+    }
+}
+\newcommand*{\arrowimage}[3][]{
+    \begin{center}
+        \begin{tikzpicture}[arrow/.style={-latex, line width=10pt, darkred!70}]
+        \node[anchor=south west,inner sep=0] (image) at (0,0)
+        {
+            % Check if width setting is empty
+            \if\relax\detokenize{#1}\relax
+                \includegraphics{#2}
+            \else
+                \includegraphics[width=#1\textwidth]{#2}
+            \fi
+        };
+        \begin{scope}[x={(image.south east)},y={(image.north west)}]
+            \foreach \sublist [count=\arrowi] in {#3}
+            {
+                \xdef\arrowx{}
+                \foreach \listitem [count=\itemi] in \sublist
+                {
+                    \ifnum\itemi=1 \xdef\arrowpos{\listitem} \fi
+                    \ifnum\itemi=2 \xdef\arrowx{\listitem} \fi
+                    \ifnum\itemi=3 \xdef\arrowy{\listitem} \fi
+                }
+                % Hack to make case with only one arrow work...
+                \ifx\arrowx\empty\else
+                    \node (end) at (\arrowx, \arrowy) {};
+                    \node [apply style/.expand once=\arrowpos] (start) {};
+                    \draw [arrow] (start) -- node [midway, black] {\arrowi} (end);
+                \fi
+            }
+        \end{scope}
+        \end{tikzpicture}
+	\end{center}
+}
