@@ -113,8 +113,9 @@ For Dr. Hanna or Dr. Gorski's class you should use one provided on Moodle which 
 preconfigured names for outputs matching the book's examples.
 For Dr. LLamocca's class you should use the master XDC file provided by Digilent Inc.
 He has made it available on Moodle as well.
-Make sure you use the correct XDC file for your board, and note that the Nexys 4 and Nexys 4 DDR
-are two different boards.
+Make sure you use the correct XDC file for your board, and note that the Nexys 4, Nexys 4 DDR,
+and Nexys A7 are two different boards.
+The Nexys 4 DDR and Nexys A7 use the same XDC file.
 
 Check "Copy constraints files into project" to copy the .xdc file into the project folder.
 Otherwise, the .xdc file will be linked to and if you ever move or delete it your project
@@ -143,7 +144,7 @@ will no longer work.
 \end{center}
 
 On the next screen you pick the FPGA that we are targeting, in the case of the Nexys 4 or
-Nexys 4 DDR board it is an Artix 7 with part number xc7a100tcsg324-1.
+Nexys A7 board it is an Artix 7 with part number xc7a100tcsg324-1.
 The Basys 3 has an Artix 7 FPGA with part number xc7a35tcpg236-1.
 You can use the filter categories and search box to limit the selection to the desired part number.
 
@@ -381,7 +382,7 @@ connected to the pins on our FPGA.
 We do this by mapping our top-level signal names to pins in a constraints file.
 If you are in Dr. Hanna or Dr. Gorski's class you should continue with the
 \nameref{sec:toplevel} section.
-If you are in Dr. Llamocca's class you should skip to the \nameref{sec:constraints} section.
+If you are in Dr. Llamocca or Dr. Alawneh's class you should skip to the \nameref{sec:constraints} section.
 
 \subsection{Top-Level Wrapper}
 \label{sec:toplevel}
@@ -473,7 +474,7 @@ end behavioral;
 
 \subsection{Editing Constraints}
 \label{sec:constraints}
-This section is aimed towards the style of Dr. Llamocca, if you created a top-level in the
+This section is aimed towards the style of Dr. Llamocca and Dr. Alawneh, if you created a top-level in the
 previous section then skip to \nameref{sec:programming}.
 You can choose to use this method or the previous \nameref{sec:toplevel} method.
 Here instead of creating a wrapper file the constraints file is edited directly.
